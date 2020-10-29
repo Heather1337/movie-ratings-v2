@@ -28,3 +28,15 @@ def create_movie(title, overview, release_date, poster_path):
     db.session.commit()
 
     return movie
+
+
+def create_rating(user, movie, score):
+    """Create and return a new rating."""
+
+    rating = Rating(user=user, movie=movie, score=score)
+
+    db.session.add(rating)
+    db.session.commit()
+
+    return rating
+
