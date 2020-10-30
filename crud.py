@@ -23,6 +23,11 @@ def get_all_users():
 
     return User.query.all()
 
+def get_user_by_id(user_id):
+    """Get information for given user by id."""
+
+    return User.query.get(user_id)
+
 def create_movie(title, overview, release_date, poster_path):
     """Create and return a new movie."""
 

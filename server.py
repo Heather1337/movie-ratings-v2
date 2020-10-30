@@ -39,6 +39,13 @@ def users_page():
 
     return render_template('all_users.html', users=users)
 
+@app.route('/users/<user_id>')
+def display_user(user_id):
+    """Display user profile for given user id."""
+
+    user = crud.get_user_by_id(user_id)
+
+    return render_template('/user_profile.html', user=user)
 
 if __name__ == '__main__':
     connect_to_db(app)
