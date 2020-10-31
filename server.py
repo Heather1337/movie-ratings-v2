@@ -47,6 +47,13 @@ def display_user(user_id):
 
     return render_template('/user_profile.html', user=user)
 
+@app.route('/users', methods=['POST'])
+def user_login():
+    """Create a new user or login an existing user."""
+    print('===================',request.form['email'])
+    email = request.form['email']
+    password = request.form['password']
+
 if __name__ == '__main__':
     connect_to_db(app)
     app.run(host='0.0.0.0', debug=True)
