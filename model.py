@@ -12,10 +12,9 @@ class User(db.Model):
     __tablename__ = 'users'
 
     user_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    password = db.Column(db.String, nullable=False)
     email = db.Column(db.String, nullable=False, unique=True)
-    password = db.column(db.String)
 
-    # ratings - a list of Rating objects
 
     def __repr__(self):
         return f'<User user_id={self.user_id} email={self.email}>'

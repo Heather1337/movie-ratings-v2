@@ -48,11 +48,40 @@ def display_user(user_id):
     return render_template('/user_profile.html', user=user)
 
 @app.route('/users', methods=['POST'])
-def user_login():
+def user_register():
     """Create a new user or login an existing user."""
-    print('===================',request.form['email'])
+
     email = request.form['email']
     password = request.form['password']
+
+    user = crud.get_user_by_email(email)
+    if user:
+        flash('Account already exists with provided email. Please provide a different email.')
+    else:
+        crud.create_user(email, password)
+        flash('Account has been created! Please log in.')
+
+    return redirect('/')
+
+@app.route('/userslogin', methods=['POST'])
+def user_login():
+    """Create a new user or login an existing user."""
+
+    email = request.form['email']
+    password = request.form['password']
+
+    user = crud.get_user_by_email(email)
+
+    if user.password == password:
+        session['user_id'] = user.user_id
+        print('USER ID HAS BEEN ADDED TO SESSION', session)
+
+        flash('You have been logged in!')
+    else:
+        flash('Password does not match what we have on file. Please log in again.')
+
+    return redirect('/')
+
 
 if __name__ == '__main__':
     connect_to_db(app)
